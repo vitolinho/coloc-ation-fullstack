@@ -11,7 +11,6 @@ class UserController extends AbstractController
 {
     public function register()
     {
-        var_dump('caca');die;
         $username = $_POST['username'];
 
         $UserManager = new UserManager(new PDOFactory());
