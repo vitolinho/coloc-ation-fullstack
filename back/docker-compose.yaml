@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '2345:80'
+        restart: unless-stopped
+        volumes:
+            - ./app:/var/www/html
+
+    db:
+        image: 'mariadb'
+        restart: always
+        environment:
+            MYSQL_DATABASE: colocdb
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            - ./database/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+    adminer:
+        image: adminer
+        ports:
+            - '2346:8080'
