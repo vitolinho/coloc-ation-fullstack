@@ -7,11 +7,6 @@ switch ($_SERVER["REQUEST_URI"]) {
     case "/":
         break;
 
-    case "/home":
-        $method = new \App\Controller\CollocationController();
-        $method->showCollocation();
-        break;
-
     case "/register":
         $method = new \App\Controller\UserController();
         $method->register();
