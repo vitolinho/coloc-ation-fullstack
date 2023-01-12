@@ -10,51 +10,71 @@ class DepenseController extends AbstractController {
 
     public function createDepense()
     {
-        session_start();
-        $id = $_SESSION['id'];
+        $apiInput = json_decode(file_get_contents("php://input"), true);
+        
+        $montant = $apiInput['montant'];
+        $description = $apiInput['description'];
+        $preuve = $_FILES['preuve'];
+        $userId = $apiInput['id'];
+        $collocationId = $apiInput['collocationId'];
 
-        $montant = $_POST['montant'];
-        $description = $_POST['description'];
-        $preuve = $_FILES;
         move_uploaded_file($_FILES['preuve']['tmp_name'], dirname(__DIR__, 2) . '/uploads/' . $_FILES['preuve']['name']);
         $datetime = new \DateTime();
 
         $newDepense = (new Depense())
                 ->setMontant($montant)
                 ->setDescription($description)
-                ->setPreuve($preuve)
+                ->setPreuve('/uploads/' . $_FILES['preuve']['name'])
+                ->setUserId($userId)
+                ->setCollocationId($collocationId)
                 ->setDatetime($datetime);
         
         $manager = new CollocationManager(new PDOFactory());
         $manager->insertDepense($newDepense);
-        #Ajouter colocationId et userId et les set
+        
+        $this->renderJSON([
+            "message" => "Dépense crée avec succès.",
+            "dépense" => $newDepense
+        ]);
     }
 
 
-    public function modifDepense()
+    public function editDepense()
     {
-        session_start();
-        $id = $_SESSION['id'];
-
-        $montant = $_POST['montant'];
-        $description = $_POST['description'];
-        $preuve = $_POST['preuve'];
+        $apiInput = json_decode(file_get_contents("php://input"), true);
+        $id = $apiInput['id'];
+        $montant = $apiInput['montant'];
+        $description = $apiInput['description'];
+        $preuve = $apiInput['preuve'];
+        $userId = $apiInput['userId'];
+        $collocationId = $apiInput['collocationId'];
         $datetime = new \DateTime();
 
         $newDepense = (new Depense())
                 ->setMontant($montant)
                 ->setDescription($description)
                 ->setPreuve($preuve)
+                ->setUserId($userId)
+                ->setCollocationId($collocationId)
                 ->setDatetime($datetime);
         
         $manager = new CollocationManager(new PDOFactory());
         $manager->updateDepense($newDepense);
-    } #colocationId et userId
 
-    public function suprDepense()
+        $this->renderJSON([
+            "message" => "Dépense modifiée avec succès.",
+            "dépense" => $newDepense
+        ]);
+    }
+
+    public function deleteDepense()
     {
-        $id = (int)$_POST['depenseId'];
+        $apiInput = json_decode(file_get_contents("php://input"), true);
+        $id = $apiInput['id'];
         $manager = new DepenseManager(new PDOFactory());
         $manager->deleteDepense($id);
+        $this->renderJSON([
+            "message" => "Dépense supprimée avec succès."
+        ]);
     }
 }

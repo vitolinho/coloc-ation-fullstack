@@ -11,7 +11,9 @@ class UserController extends AbstractController
 {
     public function register()
     {
-        $username = $_POST['username'];
+        $apiInput = json_decode(file_get_contents("php://input"), true);
+
+        $username = $apiInput['username'];
 
         $UserManager = new UserManager(new PDOFactory());
         $user = $UserManager->getUserByUsername($username);
@@ -22,6 +24,7 @@ class UserController extends AbstractController
             $user->setToken($jwt);
             $UserManager->updateUser($user);
             $this->renderJSON([
+                "message" => "Vous avez bien crée votre compte.",
                 "token" => $jwt
             ]);
             http_response_code(200);
@@ -33,8 +36,10 @@ class UserController extends AbstractController
 
     public function login()
     {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $apiInput = json_decode(file_get_contents("php://input"), true);
+
+        $username = $apiInput['username'];
+        $password = $apiInput['password'];
 
         $UserManager = new UserManager(new PDOFactory());
         $user = $UserManager->getUserByUsername($username);
@@ -44,6 +49,7 @@ class UserController extends AbstractController
             $user->setToken($jwt);
             $UserManager->updateUser($user);
             $this->renderJSON([
+                "message" => "Vous êtes connecté(e).",
                 "token" => $jwt
             ]);
             http_response_code(200);
@@ -54,11 +60,17 @@ class UserController extends AbstractController
 
     public function logout()
     {
-        if($_SERVER["REQUEST_METHOD"] === "POST") {
-            unset($_SESSION["user"]);
+        $apiInput = json_decode(file_get_contents("php://input"), true);
+
+        if($apiInput["REQUEST_METHOD"] === "POST") {
+            unset($apiInput["user"]);
             http_response_code(200);
         }
         exit();
+        
+        $this->renderJSON([
+            "message" => "Vous êtes déconnecté(e)."
+        ]);
     }
 
 }

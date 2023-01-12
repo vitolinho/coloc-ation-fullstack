@@ -32,36 +32,27 @@ switch ($_SERVER["REQUEST_URI"]) {
         $method->deleteCollocation();
         break;
     
-    case "/edit-collocation":
-        $method = new \App\Controller\CollocationController();
-        $method->editCollocation();
-        break;
-    
     case "/show-collocation":
         $method = new \App\Controller\CollocationController();
         $method->showCollocation();
         break;
     
-    case "/ajout-depense":
+    case "/create-depense":
         $method = new \App\Controller\DepenseController();
-        $method->ajtDepense();
+        $method->createDepense();
+        break;
+
+    case "/edit-depense":
+        $method = new \App\Controller\DepenseController();
+        $method->editDepense();
         break;
 
 
-    case "/suprime-depense":
+    case "/delete-depense":
         $method = new \App\Controller\DepenseController();
-        $method->suprDepense();
+        $method->deleteDepense();
         break;
 
-     case "/modifier-depense":
-        $method = new \App\Controller\DepenseController();
-        $method->modifDepense();
-        break;
-
-    case "/recaputiler-depense":
-        $method = new \App\Controller\DepenseController();
-        $method->recapDepense();
-        break;
 
     default:
         echo "Cette page n'existe pas ...";

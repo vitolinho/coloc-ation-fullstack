@@ -3,7 +3,7 @@
 namespace App\Entity;
 use Datetime;
 
-class Collocation extends BaseEntity {
+class Collocation extends BaseEntity implements \JsonSerializable {
     private int $id;
     private string $nom;
     private string $adresse;
@@ -52,5 +52,15 @@ class Collocation extends BaseEntity {
     {
         $this->datetime = $datetime;
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "id" => getId(),
+            "nom" => getNom(),
+            "adresse" => getAdresse(),
+            "datetime" => getDateTime()
+        ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Entity;
 use Datetime;
 
-class Depense extends BaseEntity{
+class Depense extends BaseEntity implements \JsonSerializable{
     private int $id;
     private int $montant;
     private string $description;
@@ -88,5 +88,18 @@ class Depense extends BaseEntity{
     {
         $this->datetime = $datetime;
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "id" => getId(),
+            "montant" => getMontant(),
+            "description" => getDescription(),
+            "preuve" => getPreuve(),
+            "userId" => getUserId(),
+            "collocationId" => getCollocationId(),
+            "datetime" => getDateTime()
+        ];
     }
 }
