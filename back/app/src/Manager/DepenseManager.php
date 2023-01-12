@@ -67,7 +67,8 @@ class DepenseManager extends BaseManager
     
     public function updateDepense(Depense $depense) :bool
     {
-        $query = $this->pdo->prepare("UPDATE Depense SET montant = :montant, description = :description, preuve = :preuve, userId = :userId, collocationId = :collocationId, datetime = STR_TO_DATE(:datetime, '%d/%m/%Y %H:%i:%s')");
+        $query = $this->pdo->prepare("UPDATE Depense SET montant = :montant, description = :description, preuve = :preuve, userId = :userId, collocationId = :collocationId, datetime = STR_TO_DATE(:datetime, '%d/%m/%Y %H:%i:%s') WHERE id = :id");
+        $query->bindValue(':id', $depense->getId());
         $query->bindValue(':montant', $depense->getMontant());
         $query->bindValue(':description', $depense->getPreuve());
         $query->bindValue(':preuve', $depense->getDescription());

@@ -11,11 +11,10 @@ class CollocationController extends AbstractController
 {
     public function createCollocation()
     {
-        session_start();
-        $id = $_SESSION['id'];
+        $apiInput = json_decode(file_get_contents("php://input"), true);
 
-        $nom = $_POST['nom'];
-        $adresse = $_POST['adresse'];
+        $nom = $apiInput['nom'];
+        $adresse = $apiInput['adresse'];
         $datetime = new \DateTime();
 
         $newCollocation = (new Collocation())
@@ -25,21 +24,30 @@ class CollocationController extends AbstractController
         
         $manager = new CollocationManager(new PDOFactory());
         $manager->insertCollocation($newCollocation);
-        // COMMENT RENVOYER JWT OU JSON ??
+
+        $this->renderJSON([
+            "message" => "Collocation crée avec succès.",
+            "collocation" => $newCollocation
+        ]);
     }
 
     public function deleteCollocation()
     {
-        $id = (int)$_POST['collocationId'];
+        $api = json_decode(file_get_contents("php://input"), true);
+        $id = (int)$api['id'];
         $manager = new CollocationManager(new PDOFactory());
         $manager->deleteCollocationById($id);
+        $this->renderJSON([
+            "message" => "Collocation supprimée avec succés."
+        ]);
     }
 
     public function showCollocation()
     {
         $manager = new CollocationManager(new PDOFactory());
         $collocations = $manager->getAllCollocation();
-        var_dump($collocations);die;
-        return $collocations;
+        $this->renderJSON([
+            "message" => "Vous pouvez comtemplé votre collocation."
+        ]);
     }
 }

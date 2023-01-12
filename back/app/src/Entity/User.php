@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class User extends BaseEntity{
+class User extends BaseEntity implements \JsonSerializable{
 
     private int $id;
     private string $username;
@@ -95,6 +95,19 @@ class User extends BaseEntity{
     {
         $this->collocationId = $collocationId;
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "id" => getId(),
+            "username" => getUsername(),
+            "mail" => getMail(),
+            "password" => getPassword(),
+            "role" => getRole(),
+            "token" => getToken(),
+            "collocationId" => getCollocationId()
+        ];
     }
 }
 
