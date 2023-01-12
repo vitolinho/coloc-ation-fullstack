@@ -5,9 +5,11 @@ import "./Register.css";
 export const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [mail, setMail] = useState('');
 
   const user = {
     usernameJSON: username,
+    mailJSON: mail,
     passwordJSON: password,
   };
 
@@ -33,7 +35,7 @@ export const Register = () => {
     setUsername(e.target.value)
   }
   const handleInputMail = (e) => {
-    setPassword(e.target.value)
+    setMail(e.target.value)
   }
   const handleInputPassword = (e) => {
     setPassword(e.target.value)
