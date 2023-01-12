@@ -44,6 +44,11 @@ class UserController extends AbstractController
         $UserManager = new UserManager(new PDOFactory());
         $user = $UserManager->getUserByUsername($username);
 
+        // if (!$user || !$user->verifyPassword($password)) {
+        //     $this->register();
+        //     exit;
+        // }
+
         if ($user && $user->verifyPassword($password)) {
             $jwt = JWTHelper::buildJWT($user);
             $user->setToken($jwt);
@@ -55,7 +60,7 @@ class UserController extends AbstractController
             http_response_code(200);
             die();
         }
-        $this->register();
+        $newUser = $this->createUserIfNotExists($username, $password);
     }
 
     public function logout()
