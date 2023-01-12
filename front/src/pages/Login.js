@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
 export const Login = () => {
 
-  const truc = {
-    username: "Francis",
-    password: "password"
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const user = {
+    usernameJSON: username,
+    passwordJSON: password
   }
 
-  console.log(JSON.stringify(truc))
+  const handleInput = (e) => {
+    setUsername(e.target.value)
+  }
+  const handleInputPassword = (e) => {
+    setPassword(e.target.value)
+  }
+
+  console.log(JSON.stringify(user))
 
 
   return (
@@ -20,8 +30,8 @@ export const Login = () => {
           <span className="logo">Coloc'Ation</span>
           <span className="title">Sign In</span>
           <form>
-            <input type="email" placeholder="username" id='email' value='hello' />
-            <input type="password" placeholder="password" />
+            <input type="text" placeholder="username" id='username' onChange={handleInput} />
+            <input type="password" placeholder="password" id='email' onChange={handleInputPassword} />
             <button>Sign In</button>
           </form>
           <p>
