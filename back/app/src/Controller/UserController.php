@@ -14,23 +14,19 @@ class UserController extends AbstractController
         $apiInput = json_decode(file_get_contents("php://input"), true);
 
         $username = $apiInput['username'];
-
         $UserManager = new UserManager(new PDOFactory());
         $user = $UserManager->getUserByUsername($username);
         if (!isset($user)) {
-            $user = new User($_POST);
-            $user = $UserManager->insertUser($user);
-            $jwt = JWTHelper::buildJWT($user);
-            $user->setToken($jwt);
-            $UserManager->updateUser($user);
+            $apiInput['password'] = password_hash($apiInput['password'], PASSWORD_DEFAULT);
+            $user = new User($apiInput);
+            $userId = $UserManager->insertUser($user);
             $this->renderJSON([
-                "message" => "Vous avez bien crée votre compte.",
-                "token" => $jwt
+                "message" => "Vous avez bien crée votre compte."
             ]);
             http_response_code(200);
             die();
         }
-        echo json_encode(['error' => 'Utilisateur ou mot de passe invalide']);
+        echo json_encode(["message" => "Il existe déjà un compte avec les mêmes identifiants et mots de passes."]);
         die();
     }
 
@@ -44,23 +40,18 @@ class UserController extends AbstractController
         $UserManager = new UserManager(new PDOFactory());
         $user = $UserManager->getUserByUsername($username);
 
-        // if (!$user || !$user->verifyPassword($password)) {
-        //     $this->register();
-        //     exit;
-        // }
-
         if ($user && $user->verifyPassword($password)) {
             $jwt = JWTHelper::buildJWT($user);
             $user->setToken($jwt);
-            $UserManager->updateUser($user);
+            $UserManager->updateUser($user->getId(), $jwt);
             $this->renderJSON([
-                "message" => "Vous êtes connecté(e).",
+                "login" => true,
                 "token" => $jwt
             ]);
             http_response_code(200);
             die();
         }
-        $newUser = $this->createUserIfNotExists($username, $password);
+        $this->register();
     }
 
     public function logout()

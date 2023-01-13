@@ -4,20 +4,20 @@ namespace App\Entity;
 
 class User extends BaseEntity implements \JsonSerializable{
 
-    private int $id;
-    private string $username;
-    private string $mail;
-    private string $password;
-    private string $role;
-    private string $token;
-    private int $collocationId;
+    private ?int $id = null;
+    private ?string $username = null;
+    private ?string $mail = null;
+    private ?string $password = null;
+    private ?string $role = null;
+    private ?string $token = null;
+    private ?int $collocationId = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): ?User
     {
         $this->id = $id;
         return $this;
@@ -28,7 +28,7 @@ class User extends BaseEntity implements \JsonSerializable{
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
         return $this;
@@ -39,7 +39,7 @@ class User extends BaseEntity implements \JsonSerializable{
         return $this-> mail;
     }
 
-    public function setMail(string $mail): self
+    public function setMail(?string $mail): self
     {
         $this->mail = $mail;
         return $this;
@@ -47,7 +47,7 @@ class User extends BaseEntity implements \JsonSerializable{
 
     public function getPassword(): ?string
     {
-        return $this->$password;
+        return $this->password;
     }
 
     public function setPassword($password, bool $hash = false)
@@ -69,7 +69,7 @@ class User extends BaseEntity implements \JsonSerializable{
         return $this->$role;
     }
     
-    public function setRole(string $role): self
+    public function setRole(?string $role): self
     {
         $this ->role = $role;
         return $this;
@@ -80,7 +80,7 @@ class User extends BaseEntity implements \JsonSerializable{
         return $this->token;
     }
 
-    public function setToken(string $token): self
+    public function setToken(?string $token): self
     {
         $this->token = $token;
         return $this;
@@ -91,7 +91,7 @@ class User extends BaseEntity implements \JsonSerializable{
         return $this->collocationId;
     }
     
-    public function setCollocationId(int $collocationId): self
+    public function setCollocationId(?int $collocationId): self
     {
         $this->collocationId = $collocationId;
         return $this;

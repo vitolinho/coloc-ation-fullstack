@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Model\Entity\User;
+use App\Entity\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class JWTHelper
 {
-    public static function buildJWT(User $user): string
+    public static function buildJWT(?User $user): string
     {
         $payload = [
             "username" => $user->getUsername(),

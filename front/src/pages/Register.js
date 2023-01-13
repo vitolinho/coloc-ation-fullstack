@@ -8,15 +8,15 @@ export const Register = () => {
   const [mail, setMail] = useState('');
 
   const user = {
-    usernameJSON: username,
-    mailJSON: mail,
-    passwordJSON: password,
+    username: username,
+    mail: mail,
+    password: password,
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(JSON.stringify(user));
-    let reponse = await fetch('http://localhost:2345/login',
+    let reponse = await fetch('http://localhost:2345/register',
       {
         method: 'POST',
         credentials: 'include',
@@ -27,7 +27,7 @@ export const Register = () => {
         mode: 'cors'
       }
     )
-      .then(e => reponse.json())
+      .then(e => e.json())
       .then(json => console.log(json))
   }
 

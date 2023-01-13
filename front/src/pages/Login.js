@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate()
+
   const user = {
-    usernameJSON: username,
-    passwordJSON: password,
+    username: username,
+    password: password,
   };
 
+  /**
+   * 
+   * @param {*} e 
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(JSON.stringify(user));
-    let reponse = await fetch('http://localhost:2345/login',
+    await fetch('http://localhost:2345/login',
       {
         method: 'POST',
         credentials: 'include',
@@ -25,8 +31,12 @@ export const Login = () => {
         mode: 'cors'
       }
     )
-      .then(e => reponse.json())
-      .then(json => console.log(json))
+      .then(e => e.json())
+      .then(json =>{ 
+        console.log(json)
+        navigate('/home')
+      })
+      .catch(e => console.log(e)) 
   }
 
   const handleInputUsername = (e) => {
