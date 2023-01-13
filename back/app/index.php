@@ -45,6 +45,11 @@ switch ($_SERVER["REQUEST_URI"]) {
         $method = new \App\Controller\CollocationController();
         $method->showCollocation();
         break;
+
+    case "/show-depense":
+        $method = new \App\Controller\DepenseController();
+        $method->showDepense();
+        break;
     
     case "/create-depense":
         $method = new \App\Controller\DepenseController();

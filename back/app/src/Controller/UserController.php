@@ -15,6 +15,7 @@ class UserController extends AbstractController
 
         $username = $apiInput['username'];
         $UserManager = new UserManager(new PDOFactory());
+
         $user = $UserManager->getUserByUsername($username);
         if (!isset($user)) {
             $apiInput['password'] = password_hash($apiInput['password'], PASSWORD_DEFAULT);
