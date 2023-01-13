@@ -12,7 +12,6 @@ export const Login = () => {
     username: username,
     password: password,
   };
-
   /**
    * 
    * @param {*} e 

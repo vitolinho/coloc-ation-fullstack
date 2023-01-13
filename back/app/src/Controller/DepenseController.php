@@ -77,4 +77,13 @@ class DepenseController extends AbstractController {
             "message" => "Dépense supprimée avec succès."
         ]);
     }
+
+    public function showDepense()
+    {
+        $manager = new DepenseManager(new PDOFactory());
+        $depenses = $manager->getAllDepense();
+        $this->renderJSON([
+            "message" => "Vous pouvez comtemplé vos dépenses."
+        ]);
+    }
 }
