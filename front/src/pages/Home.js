@@ -4,7 +4,7 @@ import deletegroup from '../img/deletegroup.png'
 import image from '../img/logout.png'
 import './Home.css'
 import Modal from 'react-modal';
-import adddepense from '../img/add_depenses.jpeg'
+import adddepense from '../img/add_depenses.png'
 
 export const Home = () => {
 
@@ -91,8 +91,8 @@ export const Home = () => {
           </label>
           
           <label>
-            Message a ajouter pour le group:
-            <br/><textarea
+            Message a ajouter pour le groupe:
+            <br/><input
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -105,8 +105,55 @@ export const Home = () => {
       </Modal>
             </button>
             
-            <button className='groupButton'>
+            <button className='groupButton' onClick={() => setModalIsOpen(true)}>
               <img className='adddepense' src={adddepense} alt='adddepense'/>
+              <Modal className="modaltest"
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        <form onSubmit={handleSubmit}>
+          <label>
+            Nom de la depense :
+            <br/><input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </label>
+          
+          <label>
+            Montant de la depesne:
+            <br/><input
+              type="text"
+              name="name"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </label>
+          
+          <label>
+            description:
+            <br/><input
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            preuves:
+            <br/><input
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </label>
+          
+          <button type="submit">Envoyer</button>
+          <button onClick={() => setModalIsOpen(false)}>Fermer</button>
+        </form>
+      </Modal>
             </button>
               
             
