@@ -52,13 +52,14 @@ class CollocationManager extends BaseManager
         return (bool)$query->execute();
     }
 
-    public function insertCollocation(Collocation $collocation) :bool
+    public function insertCollocation(Collocation $collocation) :Collocation
     {
-        $query = $this->pdo->prepare("INSERT INTO Collocation (nom, adresse, datetime) VALUES (nom, adresse, STR_TO_DATE(:datetime, '%d/%m/%Y %H:%i:%s'));");
-        $query->bindValue(':nom', $collocation->getName());
+        $query = $this->pdo->prepare("INSERT INTO Collocation (nom, adresse, datetime) VALUES (:nom, :adresse, STR_TO_DATE(:datetime, '%d/%m/%Y %H:%i:%s'));");
+        $query->bindValue(':nom', $collocation->getNom());
         $query->bindValue(':adresse', $collocation->getAdresse());
         $query->bindValue(':datetime', $collocation->getDatetime()->format('d/m/Y H:i:s'));
-        return (bool)$query->execute();
+        $query->execute();
+        return $collocation;
     }
 
     public function deleteCollocationById(int $id)

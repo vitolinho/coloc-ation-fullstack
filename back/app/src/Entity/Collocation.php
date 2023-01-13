@@ -4,10 +4,10 @@ namespace App\Entity;
 use Datetime;
 
 class Collocation extends BaseEntity implements \JsonSerializable {
-    private int $id;
-    private string $nom;
-    private string $adresse;
-    private Datetime | string $dateTime;
+    private ?int $id = null;
+    private ?string $nom = null;
+    private ?string $adresse = null;
+    private Datetime | string | null $dateTime = null;
 
     public function getId(): ?int
     {
@@ -57,10 +57,10 @@ class Collocation extends BaseEntity implements \JsonSerializable {
     public function jsonSerialize(): mixed
     {
         return [
-            "id" => getId(),
-            "nom" => getNom(),
-            "adresse" => getAdresse(),
-            "datetime" => getDateTime()
+            "id" => $this->getId(),
+            "nom" => $this->getNom(),
+            "adresse" => $this->getAdresse(),
+            "datetime" => $this->getDateTime()
         ];
     }
 }
