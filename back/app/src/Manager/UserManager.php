@@ -7,6 +7,9 @@ use App\Interfaces\Database;
 
 class UserManager extends BaseManager
 {
+    /**
+     * @return User[] array<User>
+     */
     public function getAllUser(): array
     {
         $query = $this->pdo->query("SELECT * from User");
@@ -22,6 +25,19 @@ class UserManager extends BaseManager
     {
         $query = $this->pdo->prepare("SELECT * from User where username = :username");
         $query->bindValue(':username', $username);
+        $query->execute();
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+
+        if(!$data) return null;
+
+        return new User($data);
+    }
+
+    public function getUserById(int $id): ?User
+    {
+        $query = $this->pdo->prepare("SELECT * from User where id = :id");
+        $query->bindValue(':id', $id);
         $query->execute();
 
         $data = $query->fetch(\PDO::FETCH_ASSOC);
@@ -52,26 +68,32 @@ class UserManager extends BaseManager
         return (bool)$query->execute();
     }
 
-    public function updateUser(int $id, $hashPassword = false): bool
+    public function updateUser(int $id, string $token): int
     {
-        $user->setPassword($user->getPassword(), $hashPassword);
-        $query = $this->pdo->prepare("UPDATE User SET username = :username, mail = :mail, password = :password, token = :token, collocationId = :collocationId WHERE id = :id");
-        $query->bindValue(':username', $user->getUsername());
-        $query->bindValue(':mail', $user->getPassword());
-        $query->bindValue(':password', $user->getMail());
-        $query->bindValue(':token', $user->getToken());
-        $query->bindValue(':collocationId', $user->getCollocationId());
+        $query = $this->pdo->prepare("UPDATE User SET token = :token WHERE id = :id;");
+        $query->bindValue(':token', $token);
+        $query->bindValue(':id', $id);
+        $query->execute();
+        return $id;
     }
 
-    public function insertUser(User $user) :bool
+    /**
+     * Ajouter un nouvel utuilisateur
+     * 
+     * @param User $user
+     * @return bool|User
+     */
+    public function insertUser(User $user) :bool|User
     {
         $query = $this->pdo->prepare("INSERT INTO User (username, mail, password, token, collocationId) VALUES (:username, :mail, :password, :token, :collocationId);");
         $query->bindValue(':username', $user->getUsername());
-        $query->bindValue(':mail', $user->getPassword());
-        $query->bindValue(':password', $user->getMail());
+        $query->bindValue(':mail', $user->getMail());
+        $query->bindValue(':password', $user->getPassword());
         $query->bindValue(':token', $user->getToken());
         $query->bindValue(':collocationId', $user->getCollocationId());
-        return (bool)$query->execute();
+        $query->execute();
+        $user->setId($this->pdo->lastInsertId());
+        return $user;
     }
 
     public function deleteUserById(int $id)
