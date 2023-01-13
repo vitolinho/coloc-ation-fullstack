@@ -307,6 +307,21 @@ img {
   transition: 0.7s;
 }
 
+
+
+.modaltest{
+  width: 500px;
+  height: 500px;
+  background-color: hsla(180, 12%, 8%, .8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:auto;
+  padding : 50px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
 @media screen and (max-width: 340px) {

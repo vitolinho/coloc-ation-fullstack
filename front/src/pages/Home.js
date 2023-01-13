@@ -65,40 +65,40 @@ export const Home = () => {
             <p className='headerText'>Bonjour <span className='headerUsername'> ( username ) </span>, les comptes sont bon ?</p>
             <div>
             <button className='groupButton' onClick={() => setModalIsOpen(true)}><img className='addgroup' src={addgroup} alt='addgroup'/>
-            <Modal
+            <Modal className="modaltest"
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
         <form onSubmit={handleSubmit}>
           <label>
             Nom du groupe :
-            <input
+            <br/><input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
             />
           </label>
-          <br />
+          
           <label>
             username:
-            <input
+            <br/><input
               type="text"
               name="name"
               value={formData.email}
               onChange={handleChange}
             />
           </label>
-          <br />
+          
           <label>
-            Message:
-            <textarea
+            Message a ajouter pour le group:
+            <br/><textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
             />
           </label>
-          <br />
+          
           <button type="submit">Envoyer</button>
           <button onClick={() => setModalIsOpen(false)}>Fermer</button>
         </form>
