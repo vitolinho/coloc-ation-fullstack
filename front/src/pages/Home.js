@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import addgroup from '../img/addgroup.png'
 import deletegroup from '../img/deletegroup.png'
 import image from '../img/logout.png'
 import './Home.css'
+import Modal from 'react-modal';
+import adddepense from '../img/add_depenses.jpeg'
 
 export const Home = () => {
+
+    const [formData, setFormData] = useState({
+      name: '',
+      email: '',
+      message: '',
+    });
+  
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+  
+    const handleChange = (event) => {
+      setFormData({
+        ...formData,
+        [event.target.name]: event.target.value,
+      });
+    };
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log(formData);
+      
+      setModalIsOpen(false);
+    }
+
   return (
     <div>
       <header className="header" id="header">
@@ -39,9 +64,52 @@ export const Home = () => {
           <div className='groupHeader'>
             <p className='headerText'>Bonjour <span className='headerUsername'> ( username ) </span>, les comptes sont bon ?</p>
             <div>
-            <button className='groupButton'>
-              <img className='addgroup' src={addgroup} alt='addgroup'/>
+            <button className='groupButton' onClick={() => setModalIsOpen(true)}><img className='addgroup' src={addgroup} alt='addgroup'/>
+            <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        <form onSubmit={handleSubmit}>
+          <label>
+            Nom du groupe :
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            username:
+            <input
+              type="text"
+              name="name"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <label>
+            Message:
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <button type="submit">Envoyer</button>
+          <button onClick={() => setModalIsOpen(false)}>Fermer</button>
+        </form>
+      </Modal>
             </button>
+            
+            <button className='groupButton'>
+              <img className='adddepense' src={adddepense} alt='adddepense'/>
+            </button>
+              
+            
             <button className='groupButton'>
               <img className='deletegroup' src={deletegroup} alt='deletgroup'/>
             </button>
