@@ -4,10 +4,16 @@ Projet d'école, HETIC Web 2.
 Application de gestion de frais pour des collocations réaliser avec Docker, Php et React.
 
 # Docker
-dans le dossier /back, écrire docker compose -d --build
+dans le dossier /back,
+```
+docker compose -d --build
+```
 
 # React
-dans le dossier /front, écrire yarn start
+dans le dossier /front,
+```
+yarn start
+```
 
 # Projet réalise par
 ### Vitomir LACES
