@@ -65,7 +65,7 @@ export const Home = () => {
             <p className='headerText'>Bonjour <span className='headerUsername'> ( username ) </span>, les comptes sont bon ?</p>
             <div>
             <button className='groupButton' onClick={() => setModalIsOpen(true)}><img className='addgroup' src={addgroup} alt='addgroup'/>
-            <Modal className="modaltest"
+        <Modal className="modaltest"
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
@@ -101,8 +101,8 @@ export const Home = () => {
           
           <button type="submit">Envoyer</button>
           <button onClick={() => setModalIsOpen(false)}>Fermer</button>
-        </form>
-      </Modal>
+        </form> 
+      </Modal >
             </button>
             
             <button className='groupButton' onClick={() => setModalIsOpen(true)}>
@@ -125,9 +125,9 @@ export const Home = () => {
           <label>
             Montant de la depesne:
             <br/><input
-              type="text"
-              name="name"
-              value={formData.email}
+              type="number"
+              name="number"
+              value={formData.number}
               onChange={handleChange}
             />
           </label>
@@ -144,8 +144,8 @@ export const Home = () => {
           <label>
             preuves:
             <br/><input
-              name="message"
-              value={formData.message}
+              name="preuve"
+              value={formData.preuve}
               onChange={handleChange}
             />
           </label>
