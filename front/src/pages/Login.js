@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { json, Link, useNavigate } from "react-router-dom";
+import { logUser } from "../Actions/UserAction";
+import { useFetchUser } from "../Hooks/useFetchUser";
 import "./Login.css";
 
 export const Login = () => {
@@ -7,35 +10,29 @@ export const Login = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate()
+  const fetchUser = useFetchUser()
+  const dispatch = useDispatch()
 
-  const user = {
-    username: username,
-    password: password,
-  };
-  /**
-   * 
-   * @param {*} e 
-   */
+  useEffect(() => {
+    let jwt = sessionStorage.getItem('jwt')
+
+    if (jwt != 'undefined') {
+      let userDecoded = JSON.parse(atob(jwt.split('.')[1]))
+      dispatch(logUser({
+        user: userDecoded ?? "",
+        jwt: jwt
+      }))
+      navigate('/home')
+    }
+  }, [])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(user));
-    await fetch('http://localhost:2345/login',
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: new Headers({
-          "Content-type": "application/json"
-        }),
-        body: JSON.stringify(user),
-        mode: 'cors'
-      }
-    )
-      .then(e => e.json())
-      .then(json =>{ 
-        console.log(json)
+    fetchUser(username, password)
+      .then(res => {
+        dispatch(logUser(res))
         navigate('/home')
       })
-      .catch(e => console.log(e)) 
   }
 
   const handleInputUsername = (e) => {

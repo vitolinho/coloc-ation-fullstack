@@ -5,6 +5,8 @@ import image from '../img/logout.png'
 import './Home.css'
 import Modal from 'react-modal';
 import adddepense from '../img/add_depenses.jpeg'
+import { useSelector } from 'react-redux'
+import { json, Link, useNavigate } from "react-router-dom";
 
 export const Home = () => {
 
@@ -13,8 +15,13 @@ export const Home = () => {
       email: '',
       message: '',
     });
+
+    const userInfos = useSelector(store => store.user)
   
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
   
     const handleChange = (event) => {
       setFormData({
@@ -30,6 +37,13 @@ export const Home = () => {
       setModalIsOpen(false);
     }
 
+    const handleSubmitDisconnect = (e) => {
+      e.preventDefault();
+      dispatch(logUser(res)) 
+      navigate('/login')  
+    }
+    
+
   return (
     <div>
       <header className="header" id="header">
@@ -43,7 +57,7 @@ export const Home = () => {
                 <a href="#home" className="nav__link">Home</a>
               </li>
               <div className="nav__link">
-                <button className="button nav__button">
+                <button className="button nav__button" onClick={handleSubmitDisconnect}>
                   <img className='logoutBTN' src={image} alt='logout'/>
                 </button>
               </div>
@@ -62,7 +76,7 @@ export const Home = () => {
       <div className='groupContainer'>
         <div className='backgroundGroup'>
           <div className='groupHeader'>
-            <p className='headerText'>Bonjour <span className='headerUsername'> ( username ) </span>, les comptes sont bon ?</p>
+            <p className='headerText'>Bonjour : <span className='headerUsername'>{userInfos.user.username}</span>, les comptes sont bon ?</p>
             <div>
             <button className='groupButton' onClick={() => setModalIsOpen(true)}><img className='addgroup' src={addgroup} alt='addgroup'/>
             <Modal
