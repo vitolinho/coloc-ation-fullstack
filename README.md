@@ -8,9 +8,14 @@ dans le dossier /back,
 ```
 docker compose -d --build
 ```
-
 # React
 dans le dossier /front,
+
+## Installer Yarn
+```
+npm install --global yarn
+```
+## Executer Yarn
 ```
 yarn start
 ```
