@@ -307,6 +307,35 @@ img {
   transition: 0.7s;
 }
 
+
+
+.modaltest{
+  width: 550px;
+  height: 600px;
+  background-color: hsla(180, 12%, 8%, .8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:auto;
+  padding : 50px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  border-radius: 30px;
+}
+.modaltest1{
+  width: 550px;
+  height: 600px;
+  background-color: hsla(180, 12%, 8%, .8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:auto;
+  padding : 50px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  border-radius: 30px;
+}
+
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
 @media screen and (max-width: 340px) {

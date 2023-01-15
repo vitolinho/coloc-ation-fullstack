@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import adddepense from '../img/add_depenses.jpeg'
 import { useSelector } from 'react-redux'
 import { json, Link, useNavigate } from "react-router-dom";
+import adddepense from '../img/add_depenses.png'
 
 export const Home = () => {
 
@@ -79,48 +80,95 @@ export const Home = () => {
             <p className='headerText'>Bonjour : <span className='headerUsername'>{userInfos.user.username}</span>, les comptes sont bon ?</p>
             <div>
             <button className='groupButton' onClick={() => setModalIsOpen(true)}><img className='addgroup' src={addgroup} alt='addgroup'/>
-            <Modal
+        <Modal className="modaltest"
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
         <form onSubmit={handleSubmit}>
           <label>
             Nom du groupe :
-            <input
+            <br/><input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
             />
           </label>
-          <br />
+          
           <label>
             username:
-            <input
+            <br/><input
               type="text"
               name="name"
               value={formData.email}
               onChange={handleChange}
             />
           </label>
-          <br />
+          
           <label>
-            Message:
-            <textarea
+            Message a ajouter pour le groupe:
+            <br/><input
               name="message"
               value={formData.message}
               onChange={handleChange}
             />
           </label>
-          <br />
+          
+          <button type="submit">Envoyer</button>
+          <button onClick={() => setModalIsOpen(false)}>Fermer</button>
+        </form> 
+      </Modal >
+            </button>
+            
+            <button className='groupButton' onClick={() => setModalIsOpen(true)}>
+              <img className='adddepense' src={adddepense} alt='adddepense'/>
+              <Modal className="modaltest"
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        <form onSubmit={handleSubmit}>
+          <label>
+            Nom de la depense :
+            <br/><input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </label>
+          
+          <label>
+            Montant de la depesne:
+            <br/><input
+              type="number"
+              name="number"
+              value={formData.number}
+              onChange={handleChange}
+            />
+          </label>
+          
+          <label>
+            description:
+            <br/><input
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            preuves:
+            <br/><input
+              name="preuve"
+              value={formData.preuve}
+              onChange={handleChange}
+            />
+          </label>
+          
           <button type="submit">Envoyer</button>
           <button onClick={() => setModalIsOpen(false)}>Fermer</button>
         </form>
       </Modal>
-            </button>
-            
-            <button className='groupButton'>
-              <img className='adddepense' src={adddepense} alt='adddepense'/>
             </button>
               
             
