@@ -14,6 +14,10 @@ dans le dossier /front,
 ```
 yarn start
 ```
+# Adminer
+ - Utilisateur : **root**
+ - Mot de passe : **password**
+ - Base de données : **colocdb**
 
 # Projet réalise par
 ### Vitomir LACES
