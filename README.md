@@ -1,1 +1,1 @@
-# coloc-ation-fullstack
+# Projet coloc'ation
