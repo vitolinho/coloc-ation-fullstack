@@ -47,7 +47,8 @@ class CollocationController extends AbstractController
         $manager = new CollocationManager(new PDOFactory());
         $collocations = $manager->getAllCollocation();
         $this->renderJSON([
-            "message" => "Vous pouvez comtemplé votre collocation."
+            "message" => "Vous pouvez comtemplé votre collocation.",
+            "collocations" => $collocations
         ]);
     }
 }

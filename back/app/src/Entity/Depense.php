@@ -4,12 +4,12 @@ namespace App\Entity;
 use Datetime;
 
 class Depense extends BaseEntity implements \JsonSerializable{
-    private int $id;
-    private int $montant;
-    private string $description;
-    private string $preuve;
-    private int $userId;
-    private int $collocationId;
+    private ?int $id = null;
+    private ?int $montant = null;
+    private ?string $description = null;
+    private ?string $preuve = null;
+    private ?int $userId = null;
+    private ?int $collocationId = null;
     private Datetime | string $dateTime;
 
     public function getId(): ?int
@@ -90,10 +90,9 @@ class Depense extends BaseEntity implements \JsonSerializable{
         return $this;
     }
 
-    public function jsonSerialize(): mixed
+    public function jsonSerializeDepense(): mixed
     {
         return [
-            "id" => getId(),
             "montant" => getMontant(),
             "description" => getDescription(),
             "preuve" => getPreuve(),
