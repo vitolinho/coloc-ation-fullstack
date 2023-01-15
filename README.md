@@ -20,8 +20,8 @@ yarn start
  - Base de données : **colocdb**
 
 # Projet réalise par
-### Vitomir LACES
-### Abdoulaye DIOP
-### Alex GUIRO
-### Abdoulaye DIALLO
-### Arsene DOBROVOLSKYY
+### Vitomir **LACES**
+### Abdoulaye **DIOP**
+### Alex **GUIRO**
+### Abdoulaye **DIALLO**
+### Arsene **DOBROVOLSKYY**
