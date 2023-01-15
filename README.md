@@ -1,14 +1,14 @@
-# Projet coloc'ation
+# Projet coloc'ation 🌞
 Projet d'école, HETIC Web 2.
 # Description
 Application de gestion de frais pour des collocations réaliser avec Docker, Php et React.
 
-# Docker
+# Docker 🐋
 dans le dossier /back,
 ```
 docker compose -d --build
 ```
-# React
+# React 🧬
 dans le dossier /front,
 
 ## Installer Yarn
